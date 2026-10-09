@@ -18,7 +18,7 @@ case "$cmd" in
     plugin_files=(skills/ui-craft/SKILL.md skills/ui-craft/patterns.md rules-digest.md)
     ;;
   audit)
-    skills=(thermo-nuclear-code-quality-review react-best-practices composition-patterns shadcn)
+    skills=(impeccable thermo-nuclear-code-quality-review react-best-practices composition-patterns shadcn)
     user_files=(.cursor/agents/thermo-nuclear-code-quality-review.md)
     plugin_files=(rules-digest.md skills/pr-audit/report-template.md skills/pr-audit/SKILL.md agents/pr-auditor.md)
     ;;
