@@ -7,5 +7,13 @@
   },
   "repository": "https://github.com/kdjadeja21/craft-audit-plugin",
   "license": "MIT",
-  "keywords": ["craft", "audit", "ui", "pull-request"]
+  "keywords": [
+    "craft",
+    "audit",
+    "ui",
+    "pull-request"
+  ],
+  "commands": "./commands/",
+  "agents": "./agents/",
+  "skills": "./skills/"
 }

@@ -1,7 +1,7 @@
 # Skills lock
 
 Pinned third-party sources the user installs into their project. This plugin does not vendor them and does not add an npm script. Install from the Prerequisites section of the README at these SHAs. Edit a SHA deliberately to update, then reinstall that row and refresh `rules-digest.md` if the digested rules changed.
-`reviewed`: set to `yes (<name>, <date>)` after a person has read the installed files. `scripts/check-prereqs.sh` warns on `no`.
+`reviewed`: set to `yes (<name>, <date>)` after a person has read the installed files. `scripts/check-prereqs.sh` prints one informational `note` line while any row is not `yes ...`; it never changes the READY result. This file lives in the plugin install (e.g. `~/.cursor/plugins/local/craft-audit/skills.lock.md`), not in your app project.
 
 Targets are paths relative to the user project root.
 

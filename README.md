@@ -23,6 +23,8 @@ cp -R /path/to/craft-audit-plugin ~/.cursor/plugins/local/craft-audit
 
 Restart Cursor, or run **Developer: Reload Window**. In Customize, confirm the `craft` and `audit` commands, the `ui-craft` and `pr-audit` skills, and the `pr-auditor` agent.
 
+If `/craft` and `/audit` are missing from the `/` menu but the plugin shows in Customize: make sure Settings → **Include third-party Plugins, Skills, and other configs** is on, then run **Developer: Reload Window** (or fully quit and restart Cursor). Plugin commands depend on that toggle and the slash menu can keep a stale cache until reload. See the [plugins reference](https://cursor.com/docs/reference/plugins) and [forum thread](https://forum.cursor.com/t/cursor-3-9-8-doesnt-surface-plugin-commands-md-in-the-slash-menu-both-for-local-and-marketplace-plugins/164112).
+
 ## Prerequisites
 
 `/craft` and `/audit` check the current working directory and stop when a required skill or file is missing. Run them from the project root. The check does not install anything. If it fails, follow the steps below, then run the command again.
@@ -39,6 +41,8 @@ npx shadcn@latest init --defaults --yes
 Install each pinned third-party tree into the project (paths are relative to the project root). SHAs match [skills.lock.md](skills.lock.md).
 
 ```bash
+set -e
+
 install_pinned() {
   local repo="$1" sha="$2" path="$3" dest="$4"
   local tmp rc
@@ -76,9 +80,9 @@ install_pinned cursor/plugins ccb5507cec1546dc88135c1139c811e6c59115ba cursor-te
 | no-inline-imports | `cursor/plugins` `cursor-team-kit/rules/no-inline-imports.mdc` | `ccb5507cec1546dc88135c1139c811e6c59115ba` | `.cursor/rules/no-inline-imports.mdc` |
 | typescript-exhaustive-switch | `cursor/plugins` `cursor-team-kit/rules/typescript-exhaustive-switch.mdc` | `ccb5507cec1546dc88135c1139c811e6c59115ba` | `.cursor/rules/typescript-exhaustive-switch.mdc` |
 
-`/craft` requires impeccable, composition-patterns, react-best-practices, shadcn, and `components.json`. `/audit` requires react-best-practices, composition-patterns, shadcn, the thermo-nuclear skill, and the thermo-nuclear agent. The rules digest also points at the two rule files; a missing rule is a warning, not a hard failure.
+`/craft` requires impeccable, composition-patterns, react-best-practices, shadcn, and `components.json`. `/audit` requires impeccable (referenced by `rules-digest.md`), react-best-practices, composition-patterns, shadcn, the thermo-nuclear skill, and the thermo-nuclear agent. The rules digest also points at the two rule files; a missing rule is a warning, not a hard failure.
 
-After you have read an installed tree, set its `Reviewed` cell in `skills.lock.md` to `yes (<name>, <date>)`. Until then, the prerequisite check prints a warning and still reports ready when the required files exist.
+After you have read an installed tree, set its `Reviewed` cell to `yes (<name>, <date>)` in `skills.lock.md`. That file belongs to the plugin install (for a local install, `~/.cursor/plugins/local/craft-audit/skills.lock.md`), not to your app project; the check reads it from the plugin root. Copying the plugin again overwrites your edit, so re-apply it or edit your source clone before copying. Until a row is marked reviewed, the prerequisite check prints one informational `note` line and still reports `READY` when the required files exist.
 
 ## Usage
 

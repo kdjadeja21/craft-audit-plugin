@@ -28,6 +28,7 @@ esac
 missing_user=0
 missing_plugin=0
 warn=0
+unreviewed=()
 for s in "${skills[@]}"; do
   if target_valid "$USER_ROOT/.cursor/skills/$s"; then echo "ok       skill $s"
   else echo "MISSING  skill $s (absent or invalid SKILL.md frontmatter)"; missing_user=1; fi
@@ -43,8 +44,13 @@ done
 if [ -f "$DIGEST" ] && [ -f "$LOCK" ]; then
   while IFS='|' read -r name _ _ sha _ reviewed; do
     grep -q "$sha" "$DIGEST" || { echo "WARN     rules-digest.md is stale: no $name SHA ${sha:0:7}"; warn=1; }
-    [ "$reviewed" = "no" ] && { echo "WARN     $name not yet reviewed (see $LOCK)"; warn=1; }
+    case "$reviewed" in yes*) ;; *) unreviewed+=("$name") ;; esac
   done < <(lock_rows)
+  # Informational only: an unreviewed pin is the shipped default, so it must not
+  # turn every successful check into "READY with warnings".
+  if [ "${#unreviewed[@]}" -gt 0 ]; then
+    echo "note     ${#unreviewed[@]} pinned source(s) not marked reviewed in the plugin's $LOCK (informational; does not affect READY)"
+  fi
   while read -r p; do
     [ -e "$USER_ROOT/$p" ] || { echo "WARN     rules-digest.md points to missing $p"; warn=1; }
   done < <(grep -oE '\.cursor/[A-Za-z0-9_./-]+\.(md|mdc)' "$DIGEST" | sort -u)
