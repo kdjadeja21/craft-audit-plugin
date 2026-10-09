@@ -1,11 +1,19 @@
 {
   "name": "craft-audit",
-  "description": "Cursor commands /craft and /audit: build UI with a craft workflow and audit pull requests.",
+  "description": "Cursor plugin that ships /craft (UI build workflow) and /audit (read-only pull request review). Pinned third-party skills are prerequisites installed in the user's project, not bundled.",
   "version": "0.0.1",
   "author": {
     "name": "Krushnasinh Jadeja"
   },
   "repository": "https://github.com/kdjadeja21/craft-audit-plugin",
   "license": "MIT",
-  "keywords": ["craft", "audit", "ui", "pull-request"]
+  "keywords": [
+    "craft",
+    "audit",
+    "ui",
+    "pull-request"
+  ],
+  "commands": "./commands/",
+  "agents": "./agents/",
+  "skills": "./skills/"
 }
