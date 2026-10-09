@@ -1,0 +1,11 @@
+{
+  "name": "craft-audit",
+  "description": "Cursor commands /craft and /audit: build UI with a craft workflow and audit pull requests.",
+  "version": "0.0.1",
+  "author": {
+    "name": "Krushnasinh Jadeja"
+  },
+  "repository": "https://github.com/kdjadeja21/craft-audit-plugin",
+  "license": "MIT",
+  "keywords": ["craft", "audit", "ui", "pull-request"]
+}
